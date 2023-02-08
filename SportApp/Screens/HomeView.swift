@@ -51,9 +51,6 @@ struct HomeView: View {
         }
         .ignoresSafeArea()
         .padding()
-        .overlay {
-            
-        }
         .sheet(isPresented: $viewModel.isDetailSheetPresented) {
             SheetView(
                 showModal: $viewModel.isDetailSheetPresented,
