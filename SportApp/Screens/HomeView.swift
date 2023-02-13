@@ -10,16 +10,8 @@ import SwiftUI
 struct HomeView: View {
     @ObservedObject var viewModel: HomeViewModel
     
-    private var textColor: Color {
-        viewModel.isUserProfessional ? .yellow : .black
-    }
-    
     var body: some View {
-        VStack {
-            
-            toggleSwitch
-            
-            Spacer()
+        VStack(spacing: 0) {
             
             exercisesList
             
@@ -36,6 +28,9 @@ struct HomeView: View {
                     }
                     .onDelete(perform: delete)
                 }
+                .opacity(viewModel.wodList.isEmpty ? 0 : 1)
+                
+                Spacer()
             }
             .background(viewModel.backgroundColor)
             .opacity(0.8)
@@ -55,7 +50,7 @@ struct HomeView: View {
             SheetView(
                 showModal: $viewModel.isDetailSheetPresented,
                 title: viewModel.title,
-                exerciseProgram: viewModel.isUserProfessional ? "Professional Movements" : "Basic Movements"
+                exerciseProgram: "Choose the weight to put on"
             ) { exercise in
                 viewModel.addWodToList(item: exercise)
             }
@@ -82,10 +77,14 @@ struct HomeView: View {
     
     private var exercisesList: some View {
         List{
+            Text(viewModel.exercisesListTitle)
+                .font(.headline)
+                .padding()
+            
             ForEach(viewModel.exercises, id: \.self) { exercise in
                 ExerciseRow(
                     exercise: exercise,
-                    iconColor: textColor,
+                    iconColor: .yellow,
                     onTapAction: {
                         viewModel.isDetailSheetPresented.toggle()
                         viewModel.title = exercise.rawValue
@@ -96,16 +95,6 @@ struct HomeView: View {
         .background(viewModel.backgroundColor)
         .opacity(0.8)
         .scrollContentBackground(.hidden)
-    }
-    
-    private var toggleSwitch: some View {
-        Button {
-            viewModel.isUserProfessional.toggle()
-        } label: {
-            Toggle(viewModel.isUserProfessional ? "Pro" : "Amateur", isOn: $viewModel.isUserProfessional)
-                .font(.headline)
-                .foregroundColor(textColor)
-        }
     }
 }
 
