@@ -43,6 +43,7 @@ struct HomeView: View {
                     .imageScale(.large)
                     .foregroundColor(Color.black)
             }
+            .padding()
         }
         .ignoresSafeArea()
         .padding()
