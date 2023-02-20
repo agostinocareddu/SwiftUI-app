@@ -12,6 +12,9 @@ struct HomeView: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            Text("SportApp")
+                .font(.title)
+                .padding()
             
             exercisesList
             
@@ -40,18 +43,18 @@ struct HomeView: View {
                 viewModel.isSettingsPresented = true
             } label: {
                 Image(systemName: "gearshape.2")
+                    .font(.title)
                     .imageScale(.large)
                     .foregroundColor(Color.black)
             }
-            .padding()
+            .padding(.top)
         }
         .ignoresSafeArea()
-        .padding()
+        .padding(.vertical)
         .sheet(isPresented: $viewModel.isDetailSheetPresented) {
             SheetView(
                 showModal: $viewModel.isDetailSheetPresented,
-                title: viewModel.title,
-                exerciseProgram: "Choose the weight to put on"
+                title: viewModel.title
             ) { exercise in
                 viewModel.addWodToList(item: exercise)
             }

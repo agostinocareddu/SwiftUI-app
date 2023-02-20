@@ -13,6 +13,7 @@ struct WodListRow: View {
     var body: some View {
         HStack(spacing: 5) {
             Text("\(exerciseType)")
+                .font(Font.body.bold())
         }
     }
 }

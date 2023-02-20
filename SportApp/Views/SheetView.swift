@@ -10,8 +10,8 @@ import SwiftUI
 struct SheetView: View {
     @Binding var showModal: Bool
     var title: String
-    var exerciseProgram: String
     let onSetAction: (String) -> Void
+    let exerciseProgram: String = "Choose the weight to put on"
     @State private var weight: Float = 0.0
     
     var body: some View {
@@ -20,6 +20,7 @@ struct SheetView: View {
                 Divider()
                 
                 Text(exerciseProgram)
+                    .font(.title)
                     .padding(.top, 45)
                     .navigationTitle(title.capitalized)
                     .navigationBarTitleDisplayMode(.inline)
@@ -33,16 +34,19 @@ struct SheetView: View {
                     .padding()
                 
                 Text("KG: \(Int(weight))")
+                    .font(.title)
+                    .padding(.bottom, 75)
                 
                 Button {
-                    onSetAction("\(title.capitalized) with \(Int(weight)) Kg")
+                    onSetAction("\(title.capitalized) with:     \(Int(weight)) Kg")
                     showModal.toggle()
                 } label: {
                     RoundedRectangle(cornerRadius: 20)
-                        .frame(width: 70, height: 50)
+                        .frame(width: 100, height: 70)
                     
                         .overlay {
                             Text("Add")
+                                .font(Font.title.bold())
                                 .foregroundColor(.white)
                         }
                 }
@@ -68,8 +72,7 @@ struct SheetView_Previews: PreviewProvider {
     static var previews: some View {
         SheetView(
             showModal: .constant(true),
-            title: "benchPress",
-            exerciseProgram: ""
+            title: "benchPress"
         ) {_ in }
     }
 }
